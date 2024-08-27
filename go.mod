@@ -3,10 +3,10 @@ module github.com/ameise84/time
 go 1.22.4
 
 require (
-	github.com/ameise84/go_pool v1.0.0
+	github.com/ameise84/go_pool v1.0.1
 	github.com/ameise84/heap v1.0.0
-	github.com/ameise84/lock v1.0.0
-	github.com/ameise84/logger v1.0.0
+	github.com/ameise84/lock v1.0.1
+	github.com/ameise84/logger v1.0.1
 )
 
 require (
