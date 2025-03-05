@@ -14,29 +14,50 @@ func After(d Duration) <-chan Time {
 	return time.After(d)
 }
 
-func IsSameDay(t1, t2 Time) bool {
-	return t1.Year() == t2.Year() &&
-		t1.Month() == t2.Month() &&
-		t1.Day() == t2.Day()
+func ZeroTimeUTC(t Time) Time {
+	return t.Truncate(time.Hour * 24).Local()
 }
 
-func IsSameMonth(t1, t2 Time) bool {
-	return t1.Year() == t2.Year() &&
-		t1.Month() == t2.Month()
+func ZeroTimeLocal(t Time) Time {
+	y1, m1, d1 := t.Local().Date()
+	return time.Date(y1, m1, d1, 0, 0, 0, 0, time.Local)
 }
 
-// DaysBetween 从每日零点开始计算相差天数
-func DaysBetween(before, after Time) int {
-	year1, month1, day1 := before.Date()
-	year2, month2, day2 := after.Date()
-	if year1 != year2 || month1 != month2 || day1 != day2 {
-		d1 := time.Date(year1, month1, day1, 0, 0, 0, 0, before.Location())
-		d2 := time.Date(year2, month2, day2, 0, 0, 0, 0, after.Location())
-		return int(d2.Sub(d1).Hours() / 24)
-	}
-	return 0
+func IsSameDayUTC(t1, t2 Time) bool {
+	y1, m1, d1 := t1.UTC().Date()
+	y2, m2, d2 := t2.UTC().Date()
+	return y1 == y2 && m1 == m2 && d1 == d2
+}
+func IsSameDayLocal(t1, t2 Time) bool {
+	y1, m1, d1 := t1.Local().Date()
+	y2, m2, d2 := t2.Local().Date()
+	return y1 == y2 && m1 == m2 && d1 == d2
 }
 
-func HoursBetween(before, after Time) int {
-	return int(after.Sub(before).Hours())
+func IsSameMonthUTC(t1, t2 Time) bool {
+	y1, m1, _ := t1.UTC().Date()
+	y2, m2, _ := t2.UTC().Date()
+	return y1 == y2 && m1 == m2
+}
+
+func IsSameMonthLocal(t1, t2 Time) bool {
+	y1, m1, _ := t1.Local().Date()
+	y2, m2, _ := t2.Local().Date()
+	return y1 == y2 && m1 == m2
+}
+
+// DaysBetweenUTC 从每日零点开始计算相差天数
+func DaysBetweenUTC(before, after Time) int64 {
+	t1 := ZeroTimeUTC(before)
+	t2 := ZeroTimeUTC(after)
+	return int64(t2.Sub(t1).Hours() / 24)
+}
+
+func DaysBetweenLocal(before, after Time) int64 {
+	t1 := ZeroTimeLocal(before)
+	t2 := ZeroTimeLocal(after)
+	return int64(t2.Sub(t1).Hours() / 24)
+}
+func HoursBetween(before, after Time) int64 {
+	return int64(after.Sub(before).Hours())
 }
