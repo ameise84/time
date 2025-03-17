@@ -4,6 +4,7 @@ import (
 	"container/list"
 	"github.com/ameise84/go_pool"
 	"github.com/ameise84/lock"
+	"github.com/ameise84/logger"
 	"runtime"
 	"sync/atomic"
 	stdTime "time"
@@ -59,8 +60,12 @@ type looper struct {
 	waitKillList list.List
 }
 
+func (l *looper) LogFmt() string {
+	return "timer looper"
+}
+
 func (l *looper) OnPanic(err error) {
-	_gLogger.Error(err)
+	_gLogger.ErrorBeans([]logger.Bean{l}, err)
 }
 
 func (l *looper) Start() error {

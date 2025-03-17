@@ -1,14 +1,8 @@
 package time
 
-import (
-	"github.com/ameise84/logger"
-)
+import "github.com/ameise84/logger"
 
-type Logger interface {
-	Error(any)
-}
-
-var _gLogger Logger
+var _gLogger logger.Logger
 
 func init() {
 	_gLogger = logger.DefaultLogger()
