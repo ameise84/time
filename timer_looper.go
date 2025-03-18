@@ -4,7 +4,6 @@ import (
 	"container/list"
 	"github.com/ameise84/go_pool"
 	"github.com/ameise84/lock"
-	"github.com/ameise84/logger"
 	"runtime"
 	"sync/atomic"
 	stdTime "time"
@@ -65,7 +64,7 @@ func (l *looper) LogFmt() string {
 }
 
 func (l *looper) OnPanic(err error) {
-	_gLogger.ErrorBeans([]logger.Bean{l}, err)
+	_gLogger.ErrorBean(l, err)
 }
 
 func (l *looper) Start() error {

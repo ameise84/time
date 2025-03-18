@@ -8,7 +8,7 @@ require (
 	github.com/ameise84/go_pool v1.0.1
 	github.com/ameise84/heap v1.0.0
 	github.com/ameise84/lock v1.0.1
-	github.com/ameise84/logger v1.0.2
+	github.com/ameise84/logger v1.1.0
 )
 
 require (
